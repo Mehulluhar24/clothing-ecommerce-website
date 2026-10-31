@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+   
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+        <style>
+    /* ===== General Styles ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* ===== Header Styles ===== */
+    h3 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 2rem;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #ddd, transparent);
+        margin: 10px 0;
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        background-color: #fff;
+        padding: 20px 0;
+        font-weight: bold;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    header a {
+        text-decoration: none;
+        color: #333;
+        transition: 0.3s;
+        font-size: 1.1rem;
+        padding: 8px 16px;
+        border-radius: 25px;
+        position: relative;
+    }
+
+    header a:hover {
+        color: #e74c3c;
+        background-color: #f8f9fa;
+    }
+
+    header a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #e74c3c;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    header a:hover::after {
+        width: 80%;
+    }
+
+    /* ===== Marquee Styles ===== */
+    marquee {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        padding: 15px 0;
+        font-weight: bold;
+        color: white;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+    }
+
+    /* ===== Hero Section ===== */
+    .hero-image {
+        width: 100%;
+        height: 60vh;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        margin: 20px 0;
+    }
+
+    .hero-image:hover {
+        transform: scale(1.02);
+    }
+
+    .welcome-text {
+        text-align: center;
+        margin: 30px auto;
+        max-width: 600px;
+        padding: 0 20px;
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.8;
+    }
+
+    /* ===== Product Carousel ===== */
+    .hscroll-carousel {
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 40px 0;
+        margin: 40px 0;
+        position: relative;
+    }
+
+    .hscroll-carousel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #e74c3c, transparent);
+    }
+
+    .hscroll-track {
+        display: flex;
+        animation: scroll 30s linear infinite;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .hscroll-item {
+        flex: 0 0 auto;
+        transition: transform 0.3s ease;
+    }
+
+    .hscroll-item:hover {
+        transform: translateY(-10px);
+    }
+
+    .hscroll-item img {
+        height: 250px;
+        width: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 3px solid white;
+    }
+
+    .hscroll-item img:hover {
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+    /* Keyframes for smooth infinite scroll */
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-300px * 5 - 20px * 5));
+        }
+    }
+
+    /* Pause animation on hover */
+    .hscroll-carousel:hover .hscroll-track {
+        animation-play-state: paused;
+    }
+
+    /* ===== Footer Styles ===== */
+    footer {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        color: white;
+        padding: 40px 0 0;
+        margin-top: 50px;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .footer-section h3 {
+        color: #ecf0f1;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        text-align: left;
+    }
+
+    .footer-section h4 {
+        color: #ecf0f1;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+
+    .footer-section p {
+        margin-bottom: 10px;
+        color: #bdc3c7;
+    }
+
+    .footer-section.about p {
+        line-height: 1.6;
+    }
+
+    .socials {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .socials a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .socials a:hover {
+        background: #e74c3c;
+        transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .footer-bottom p {
+        color: #95a5a6;
+        margin: 0;
+    }
+
+    .footer-bottom strong {
+        color: #e74c3c;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 768px) {
+        header {
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px 0;
+        }
+
+        header a {
+            font-size: 1rem;
+            padding: 6px 12px;
+        }
+
+        .hscroll-item img {
+            height: 200px;
+            width: 250px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        .welcome-text {
+            font-size: 1rem;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-250px * 5 - 20px * 5));
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        header {
+            gap: 10px;
+        }
+
+        header a {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+        }
+
+        .hscroll-item img {
+            height: 150px;
+            width: 180px;
+        }
+
+        .footer-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .footer-section h3 {
+            text-align: center;
+        }
+
+        .socials {
+            justify-content: center;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-180px * 5 - 20px * 5));
+            }
+        }
+    }
+</style>
+</head>
+
+<body>
+    <h3>Swarup Clothes</h3>
+    <hr>
+     <header>
+        <a href="home.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="checkout.html">checkout</a>
+        <a href="cart.html">Cart</a>
+        <a href="about.html">About</a>
+    </header>
+    <hr>
+    <div>
+        <marquee>20% OFF Buy Anything Buy 2 get 1 Free 20% OFF Buy Anything Buy 2 get 1 Free</marquee>
+    </div>
+    <hr>
+
+    <br>
+
+    <h3>Welcome to SimpleShop! Discover amazing deals and trendy products — all in one place.</h3>
+
+
+    <img src="https://www.gymaesthetics.com/cdn/shop/files/20231220_new_collection.jpg?v=1703065278&width=1080" width="100%" height="50%"
+        ondblclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+
+    <h4>Welcome to SimpleShop! We bring you a curated selection of high-quality products at affordable prices. From
+        trendy fashion to everyday essentials,
+        our mission is to make online shopping simple, enjoyable, and reliable.
+        Discover products you’ll love and enjoy a seamless shopping experience with us.</h4>
+
+
+
+    <!-- Product Carousel -->
+    <div class="hscroll-carousel">
+        <div class="hscroll-track">
+            <div class="hscroll-item">
+                <img src=https://static.vecteezy.com/system/resources/thumbnails/022/335/206/small_2x/stack-of-clothes-a-family-laundry-pile-generative-ai-photo.jpeg
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://as1.ftcdn.net/v2/jpg/03/34/79/68/1000_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://s.alicdn.com/@sc04/kf/H0fbce6ddcaed44fb839a065016736f42C.jpg_720x720q50.jpg"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.SgIoBUsU72e98sbZqyPZ3QHaJ4?w=768&h=1024&rs=1&pid=ImgDetMain&o=7&rm=3"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://bonobos-contentful.imgix.net/1zbm708fksg8/b8GOGc34UCQ2YK2xjRzux/749ce1e3582a013dfa3ec2eb02db58a8/JULY-HP-Program-Tile-2-Desktop.png?auto=compress%2Cformat&fit=clip&cs=srgb&w=1366&fm=pjpg&q=50"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+
+            <!-- Duplicate items for seamless scroll -->
+            <div class="hscroll-item">
+                <img src=https://static.vecteezy.com/system/resources/thumbnails/022/335/206/small_2x/stack-of-clothes-a-family-laundry-pile-generative-ai-photo.jpeg
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://as1.ftcdn.net/v2/jpg/03/34/79/68/1000_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://s.alicdn.com/@sc04/kf/H0fbce6ddcaed44fb839a065016736f42C.jpg_720x720q50.jpg"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.SgIoBUsU72e98sbZqyPZ3QHaJ4?w=768&h=1024&rs=1&pid=ImgDetMain&o=7&rm=3"
+                    Onclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+            <div class="hscroll-item">
+                <img src="https://bonobos-contentful.imgix.net/1zbm708fksg8/b8GOGc34UCQ2YK2xjRzux/749ce1e3582a013dfa3ec2eb02db58a8/JULY-HP-Program-Tile-2-Desktop.png?auto=compress%2Cformat&fit=clip&cs=srgb&w=1366&fm=pjpg&q=50"
+                ondblclick="openPage('http://localhost/Phpprog/e-commerce/product.php')">
+            </div>
+        </div>
+    </div>
+
+    <!-- <img src="https://as1.ftcdn.net/v2/jpg/03/34/79/68/1000_F_334796865_VVTjg49nbLgQPG6rgKDjVqSb5XUhBVsW.jpg" height="20%" width="20%">
+        <button type="button">Add to cart</button> <button type="button"  onclick="openPage('file:///C:/xampp/htdocs/Phpprog/e-commerce/product.html')">Buy Now</button>
+
+        <img src="thhttps://.bing.com/th/id/R.b220a377c612dec68069c268dae6551e?rik=cR7caia%2b3czscA&riu=http%3a%2f%2f5.imimg.com%2fdata5%2fSELLER%2fDefault%2f2024%2f8%2f442030167%2fFP%2fLJ%2fLI%2f29296468%2fclothing-product-photography-service-1000x1000.jpg&ehk=88IbcDyFqEdkXXpXHRqZKXVdRywKgfnwWrKz0Z5ZFH4%3d&risl=&pid=ImgRaw&r=0" height="20%" width="20%">
+        <button type="button">Add to cart</button> <button type="button"  onclick="openPage('file:///C:/xampp/htdocs/Phpprog/e-commerce/product.html')">Buy Now</button>
+
+        <img src="https://s.alicdn.com/@sc04/kf/H0fbce6ddcaed44fb839a065016736f42C.jpg_720x720q50.jpg" height="20%" width="20%">
+        <button type="button">Add to cart</button> <button type="button"  onclick="openPage('file:///C:/xampp/htdocs/Phpprog/e-commerce/product.html')">Buy Now</button>
+
+        <img src="https://tse1.mm.bing.net/th/id/OIP.SgIoBUsU72e98sbZqyPZ3QHaJ4?w=768&h=1024&rs=1&pid=ImgDetMain&o=7&rm=3" height="20%" width="20%">
+        <button type="button">Add to cart</button> <button type="button"  onclick="openPage('file:///C:/xampp/htdocs/Phpprog/e-commerce/product.html')">Buy Now</button>
+
+        <img src="https://bonobos-contentful.imgix.net/1zbm708fksg8/b8GOGc34UCQ2YK2xjRzux/749ce1e3582a013dfa3ec2eb02db58a8/JULY-HP-Program-Tile-2-Desktop.png?auto=compress%2Cformat&fit=clip&cs=srgb&w=1366&fm=pjpg&q=50" height="20%" width="20%">
+        <button type="button">Add to cart</button> <button type="button" onclick="openPage('file:///C:/xampp/htdocs/Phpprog/e-commerce/product.html')">Buy Now</button> -->
+
+
+    <!-- footer.php -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h3>SimpleShop</h3>
+                <p>Your one-stop shop for quality products at affordable prices.</p>
+            </div>
+
+            <div class="footer-section links">
+
+
+                <div class="footer-section contact">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@simpleshop.com</p>
+                    <p>Phone: +91 9876543210</p>
+                    <div class="socials">
+                        <p>Follow us:</p>
+                        <a href="https://www.instagram.com/hiramotihotel" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/hiramotihotel" target="_blank"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.twitter.com/hiramotihotel" target="_blank"><i
+                                class="fab fa-twitter"></i></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 SimpleShop. All Rights Reserved. | Developed by <strong>Mehul</strong></p>
+            </div>
+    </footer>
+
+
+</body>
+
+</html>
